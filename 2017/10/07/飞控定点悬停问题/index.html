@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>飞控定点悬停问题 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="好吧，今天第一天写工作日志今天主要解决的问题是飞控会漂的问题，原因可能来自f3飞控本身的bug，因此换个飞控是很有必要的那么问题来了，用什么飞控好勒，你谷歌百度或者问别人那个飞控定点悬停效果好最后得到的答案都是一个：pixhawk但是，pixhawk虽然很强大，从学习的角度看，难度太大，开发周期长，如果我大二这个时候开始搞的话可能会选它，但是现在时间不够。。。所以现在要一个既有良好的定点效果，并且">
+<meta property="og:type" content="article">
+<meta property="og:title" content="飞控定点悬停问题">
+<meta property="og:url" content="http://yoursite.com/2017/10/07/飞控定点悬停问题/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="好吧，今天第一天写工作日志今天主要解决的问题是飞控会漂的问题，原因可能来自f3飞控本身的bug，因此换个飞控是很有必要的那么问题来了，用什么飞控好勒，你谷歌百度或者问别人那个飞控定点悬停效果好最后得到的答案都是一个：pixhawk但是，pixhawk虽然很强大，从学习的角度看，难度太大，开发周期长，如果我大二这个时候开始搞的话可能会选它，但是现在时间不够。。。所以现在要一个既有良好的定点效果，并且">
+<meta property="og:updated_time" content="2017-10-09T16:40:35.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="飞控定点悬停问题">
+<meta name="twitter:description" content="好吧，今天第一天写工作日志今天主要解决的问题是飞控会漂的问题，原因可能来自f3飞控本身的bug，因此换个飞控是很有必要的那么问题来了，用什么飞控好勒，你谷歌百度或者问别人那个飞控定点悬停效果好最后得到的答案都是一个：pixhawk但是，pixhawk虽然很强大，从学习的角度看，难度太大，开发周期长，如果我大二这个时候开始搞的话可能会选它，但是现在时间不够。。。所以现在要一个既有良好的定点效果，并且">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-飞控定点悬停问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/07/飞控定点悬停问题/" class="article-date">
+  <time datetime="2017-10-07T01:17:10.000Z" itemprop="datePublished">2017-10-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      飞控定点悬停问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>好吧，今天第一天写工作日志<br>今天主要解决的问题是飞控会漂的问题，原因可能来自f3飞控本身的bug，因此换个飞控是很有必要的<br>那么问题来了，用什么飞控好勒，你谷歌百度或者问别人那个飞控定点悬停效果好最后得到的答案都是一个：<br>pixhawk<br>但是，pixhawk虽然很强大，从学习的角度看，难度太大，开发周期长，如果我大二这个时候开始搞的话可能会选它，但是现在时间不够。。。所以现在要一个既有良好的定点效果，并且易上手开发的飞控，因此我的选择是：<br>superfly<br>这个是国内大学生团体做的一款开源飞控，keil开发，并且目测定点效果好.<br>现在在等快递中。。。<br>在等的过程中开始计划我的第二个项目，就是做一个微型四轴，从硬件到软件，从底层到顶层<br>首先要设计好硬件，这也是设计中比较困难的地方，先找资料，看看别人的原理图设计，用到哪些芯片，哪些模块。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/07/飞控定点悬停问题/" data-id="cj8kenn960001t0r5645zvkt3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/26/博客名字/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">博客测试</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Arkiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Siste innlegg</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/07/飞控定点悬停问题/">飞控定点悬停问题</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/26/博客名字/">博客测试</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/26/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
