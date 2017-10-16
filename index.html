@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,87 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-stm32定时器配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/16/stm32定时器配置/" class="article-date">
+  <time datetime="2017-10-16T08:14:07.000Z" itemprop="datePublished">2017-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/16/stm32定时器配置/">stm32定时器配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先把公式拿出来：溢出中断时间=(arr+1)*T<br>arr是计数器自动重装值，就是你要计数几次，然后T是你的时钟源周期</p>
+<p>arr是你直接操作寄存器赋值的<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TIM9-&gt;ARR=arr;</div></pre></td></tr></table></figure></p>
+<p>然后T就比较麻烦，公式是f = fclk/(N+1)<br>fclk是计数器的时钟，N就是分频值</p>
+<p>N是你直接操作寄存器赋值的<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TIM9-&gt;ARR=psc;</div></pre></td></tr></table></figure></p>
+<p>fclk是你配置时钟的时候设置的，自己看手册</p>
+<p>例如：fclk设置为168M，分频值N = 167，求得f = 1M，就是计数器的时钟是1us<br>然后arr = 1999，求得中断时间为2ms</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/16/stm32定时器配置/" data-id="cj8tx42j90000tsr542orlroe" class="article-share-link">Delen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-stm32时钟底层配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/16/stm32时钟底层配置/" class="article-date">
+  <time datetime="2017-10-16T06:50:41.000Z" itemprop="datePublished">2017-10-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/16/stm32时钟底层配置/">stm32时钟底层配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="看手册！"><a href="#看手册！" class="headerlink" title="看手册！"></a>看手册！</h2><h3 id="时钟控制寄存器-HSI-振荡器打开-设置HISON-开启内部高速RC振荡"><a href="#时钟控制寄存器-HSI-振荡器打开-设置HISON-开启内部高速RC振荡" class="headerlink" title="时钟控制寄存器 HSI 振荡器打开 设置HISON,开启内部高速RC振荡"></a>时钟控制寄存器 HSI 振荡器打开 设置HISON,开启内部高速RC振荡</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RCC-&gt;CR|=<span class="number">0x00000001</span>;</div></pre></td></tr></table></figure>
+<h3 id="时钟配置寄存器-不分频-CFGR清零"><a href="#时钟配置寄存器-不分频-CFGR清零" class="headerlink" title="时钟配置寄存器 不分频 CFGR清零"></a>时钟配置寄存器 不分频 CFGR清零</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RCC-&gt;CFGR=<span class="number">0x00000000</span>;</div></pre></td></tr></table></figure>
+<h3 id="时钟控制寄存器-不分频-CFGR清零"><a href="#时钟控制寄存器-不分频-CFGR清零" class="headerlink" title="时钟控制寄存器 不分频 CFGR清零"></a>时钟控制寄存器 不分频 CFGR清零</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RCC-&gt;CFGR=<span class="number">0x00000000</span>;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/16/stm32时钟底层配置/" data-id="cj8tx42jh0001tsr5brcquka1" class="article-share-link">Delen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-superfly飞控源码分析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -90,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/15/superfly飞控源码分析/" data-id="cj8tprmoh0001dgr5pg8lqi7a" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/10/15/superfly飞控源码分析/" data-id="cj8tx42jm0002tsr5zpo3ciw5" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -127,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/12/画飞控板/" data-id="cj8tprmpa0003dgr5fn4bxqy2" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/10/12/画飞控板/" data-id="cj8tx42k10007tsr5kq4u6h0j" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -164,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/10/小四轴硬件设计/" data-id="cj8tprmp60002dgr538t61cjz" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/10/10/小四轴硬件设计/" data-id="cj8tx42ju0005tsr5rbhfbawi" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -201,7 +282,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/07/飞控定点悬停问题/" data-id="cj8tprmq00005dgr5h61ngro6" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/10/07/飞控定点悬停问题/" data-id="cj8tx42jy0006tsr5zte97451" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -246,7 +327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/博客名字/" data-id="cj8tprmpc0004dgr5f39kyvco" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/09/26/博客名字/" data-id="cj8tx42jr0004tsr5pbi8wa7l" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -291,7 +372,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/hello-world/" data-id="cj8tprmoa0000dgr5uj238a7d" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/09/26/hello-world/" data-id="cj8tx42jp0003tsr5x0e4wxce" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -316,7 +397,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archieven</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
     </div>
@@ -326,9 +407,17 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recente berichten</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/10/16/stm32定时器配置/">stm32定时器配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/16/stm32时钟底层配置/">stm32时钟底层配置</a>
+          </li>
         
           <li>
             <a href="/2017/10/15/superfly飞控源码分析/">superfly飞控源码分析</a>
@@ -340,14 +429,6 @@
         
           <li>
             <a href="/2017/10/10/小四轴硬件设计/">小四轴硬件设计</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/07/飞控定点悬停问题/">飞控定点悬停问题</a>
-          </li>
-        
-          <li>
-            <a href="/2017/09/26/博客名字/">博客测试</a>
           </li>
         
       </ul>
@@ -363,7 +444,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

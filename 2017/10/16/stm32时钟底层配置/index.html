@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>飞控定点悬停问题 | Hexo</title>
+  <title>stm32时钟底层配置 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="好吧，今天第一天写工作日志今天主要解决的问题是飞控会漂的问题，原因可能来自f3飞控本身的bug，因此换个飞控是很有必要的那么问题来了，用什么飞控好勒，你谷歌百度或者问别人那个飞控定点悬停效果好最后得到的答案都是一个：pixhawk但是，pixhawk虽然很强大，从学习的角度看，难度太大，开发周期长，如果我大二这个时候开始搞的话可能会选它，但是现在时间不够。。。所以现在要一个既有良好的定点效果，并且">
+  <meta name="description" content="看手册！时钟控制寄存器 HSI 振荡器打开 设置HISON,开启内部高速RC振荡1RCC-&amp;gt;CR|=0x00000001; 时钟配置寄存器 不分频 CFGR清零1RCC-&amp;gt;CFGR=0x00000000; 时钟控制寄存器 不分频 CFGR清零1RCC-&amp;gt;CFGR=0x00000000;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="飞控定点悬停问题">
-<meta property="og:url" content="http://yoursite.com/2017/10/07/飞控定点悬停问题/index.html">
+<meta property="og:title" content="stm32时钟底层配置">
+<meta property="og:url" content="http://yoursite.com/2017/10/16/stm32时钟底层配置/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="好吧，今天第一天写工作日志今天主要解决的问题是飞控会漂的问题，原因可能来自f3飞控本身的bug，因此换个飞控是很有必要的那么问题来了，用什么飞控好勒，你谷歌百度或者问别人那个飞控定点悬停效果好最后得到的答案都是一个：pixhawk但是，pixhawk虽然很强大，从学习的角度看，难度太大，开发周期长，如果我大二这个时候开始搞的话可能会选它，但是现在时间不够。。。所以现在要一个既有良好的定点效果，并且">
-<meta property="og:updated_time" content="2017-10-09T16:40:35.008Z">
+<meta property="og:description" content="看手册！时钟控制寄存器 HSI 振荡器打开 设置HISON,开启内部高速RC振荡1RCC-&amp;gt;CR|=0x00000001; 时钟配置寄存器 不分频 CFGR清零1RCC-&amp;gt;CFGR=0x00000000; 时钟控制寄存器 不分频 CFGR清零1RCC-&amp;gt;CFGR=0x00000000;">
+<meta property="og:updated_time" content="2017-10-16T08:15:01.166Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="飞控定点悬停问题">
-<meta name="twitter:description" content="好吧，今天第一天写工作日志今天主要解决的问题是飞控会漂的问题，原因可能来自f3飞控本身的bug，因此换个飞控是很有必要的那么问题来了，用什么飞控好勒，你谷歌百度或者问别人那个飞控定点悬停效果好最后得到的答案都是一个：pixhawk但是，pixhawk虽然很强大，从学习的角度看，难度太大，开发周期长，如果我大二这个时候开始搞的话可能会选它，但是现在时间不够。。。所以现在要一个既有良好的定点效果，并且">
+<meta name="twitter:title" content="stm32时钟底层配置">
+<meta name="twitter:description" content="看手册！时钟控制寄存器 HSI 振荡器打开 设置HISON,开启内部高速RC振荡1RCC-&amp;gt;CR|=0x00000001; 时钟配置寄存器 不分频 CFGR清零1RCC-&amp;gt;CFGR=0x00000000; 时钟控制寄存器 不分频 CFGR清零1RCC-&amp;gt;CFGR=0x00000000;">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -63,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-飞控定点悬停问题" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-stm32时钟底层配置" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/10/07/飞控定点悬停问题/" class="article-date">
-  <time datetime="2017-10-07T01:17:10.000Z" itemprop="datePublished">2017-10-07</time>
+    <a href="/2017/10/16/stm32时钟底层配置/" class="article-date">
+  <time datetime="2017-10-16T06:50:41.000Z" itemprop="datePublished">2017-10-16</time>
 </a>
     
   </div>
@@ -77,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      飞控定点悬停问题
+      stm32时钟底层配置
     </h1>
   
 
@@ -85,12 +85,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>好吧，今天第一天写工作日志<br>今天主要解决的问题是飞控会漂的问题，原因可能来自f3飞控本身的bug，因此换个飞控是很有必要的<br>那么问题来了，用什么飞控好勒，你谷歌百度或者问别人那个飞控定点悬停效果好最后得到的答案都是一个：<br>pixhawk<br>但是，pixhawk虽然很强大，从学习的角度看，难度太大，开发周期长，如果我大二这个时候开始搞的话可能会选它，但是现在时间不够。。。所以现在要一个既有良好的定点效果，并且易上手开发的飞控，因此我的选择是：<br>superfly<br>这个是国内大学生团体做的一款开源飞控，keil开发，并且目测定点效果好.<br>现在在等快递中。。。<br>在等的过程中开始计划我的第二个项目，就是做一个微型四轴，从硬件到软件，从底层到顶层<br>首先要设计好硬件，这也是设计中比较困难的地方，先找资料，看看别人的原理图设计，用到哪些芯片，哪些模块。</p>
+        <h2 id="看手册！"><a href="#看手册！" class="headerlink" title="看手册！"></a>看手册！</h2><h3 id="时钟控制寄存器-HSI-振荡器打开-设置HISON-开启内部高速RC振荡"><a href="#时钟控制寄存器-HSI-振荡器打开-设置HISON-开启内部高速RC振荡" class="headerlink" title="时钟控制寄存器 HSI 振荡器打开 设置HISON,开启内部高速RC振荡"></a>时钟控制寄存器 HSI 振荡器打开 设置HISON,开启内部高速RC振荡</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RCC-&gt;CR|=<span class="number">0x00000001</span>;</div></pre></td></tr></table></figure>
+<h3 id="时钟配置寄存器-不分频-CFGR清零"><a href="#时钟配置寄存器-不分频-CFGR清零" class="headerlink" title="时钟配置寄存器 不分频 CFGR清零"></a>时钟配置寄存器 不分频 CFGR清零</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RCC-&gt;CFGR=<span class="number">0x00000000</span>;</div></pre></td></tr></table></figure>
+<h3 id="时钟控制寄存器-不分频-CFGR清零"><a href="#时钟控制寄存器-不分频-CFGR清零" class="headerlink" title="时钟控制寄存器 不分频 CFGR清零"></a>时钟控制寄存器 不分频 CFGR清零</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RCC-&gt;CFGR=<span class="number">0x00000000</span>;</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/07/飞控定点悬停问题/" data-id="cj8tx42jy0006tsr5zte97451" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/16/stm32时钟底层配置/" data-id="cj8tx42jh0001tsr5brcquka1" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -99,19 +101,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/10/10/小四轴硬件设计/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/16/stm32定时器配置/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Nieuwer</strong>
       <div class="article-nav-title">
         
-          小四轴硬件设计
+          stm32定时器配置
         
       </div>
     </a>
   
   
-    <a href="/2017/09/26/博客名字/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/10/15/superfly飞控源码分析/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Ouder</strong>
-      <div class="article-nav-title">博客测试</div>
+      <div class="article-nav-title">superfly飞控源码分析</div>
     </a>
   
 </nav>
