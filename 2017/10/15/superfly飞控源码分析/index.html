@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>superfly飞控源码分析 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="superfly是国内大学生开发的一款开源飞控，keil开发，与其他飞控相比，容易学习上手。废话不多说，直接从主函数看起。 首先定义了一个变量i，赋值0，暂时不知道是干嘛的然后是时钟初始化，系统时钟设置为168M延时函数初始化，其实是使用SYSTICK来计数串口1初始化，波特率115200定时器2捕获初始化定时器5捕获初始化GPS初始化，其实是串口3初始化，通过串口和GPS进行通信定时器6初始化I">
+<meta property="og:type" content="article">
+<meta property="og:title" content="superfly飞控源码分析">
+<meta property="og:url" content="http://yoursite.com/2017/10/15/superfly飞控源码分析/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="superfly是国内大学生开发的一款开源飞控，keil开发，与其他飞控相比，容易学习上手。废话不多说，直接从主函数看起。 首先定义了一个变量i，赋值0，暂时不知道是干嘛的然后是时钟初始化，系统时钟设置为168M延时函数初始化，其实是使用SYSTICK来计数串口1初始化，波特率115200定时器2捕获初始化定时器5捕获初始化GPS初始化，其实是串口3初始化，通过串口和GPS进行通信定时器6初始化I">
+<meta property="og:updated_time" content="2017-10-16T05:01:57.782Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="superfly飞控源码分析">
+<meta name="twitter:description" content="superfly是国内大学生开发的一款开源飞控，keil开发，与其他飞控相比，容易学习上手。废话不多说，直接从主函数看起。 首先定义了一个变量i，赋值0，暂时不知道是干嘛的然后是时钟初始化，系统时钟设置为168M延时函数初始化，其实是使用SYSTICK来计数串口1初始化，波特率115200定时器2捕获初始化定时器5捕获初始化GPS初始化，其实是串口3初始化，通过串口和GPS进行通信定时器6初始化I">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-superfly飞控源码分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/15/superfly飞控源码分析/" class="article-date">
+  <time datetime="2017-10-15T01:00:42.000Z" itemprop="datePublished">2017-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      superfly飞控源码分析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>superfly是国内大学生开发的一款开源飞控，keil开发，与其他飞控相比，容易学习上手。<br>废话不多说，直接从主函数看起。</p>
+<p>首先定义了一个变量i，赋值0，暂时不知道是干嘛的<br>然后是时钟初始化，系统时钟设置为168M<br>延时函数初始化，其实是使用SYSTICK来计数<br>串口1初始化，波特率115200<br>定时器2捕获初始化<br>定时器5捕获初始化<br>GPS初始化，其实是串口3初始化，通过串口和GPS进行通信<br>定时器6初始化<br>I2C初始化<br>LED初始化<br>点灯<br>OLED初始化，软件I2C通信<br>OLED清屏，软件I2C通信<br>保存ID，I2C外部EEPROM写操作，不知道这ID是干嘛的。。。<br>然后是GPS里的磁力计初始化，软件IIC通信，之前这里一直搞糊涂，其实那个GPS模块不仅是GPS，还包括了磁力计，这就是为什么那个模块有六根线，两根电源线，两根串口（GPS通信），两根I2C（罗盘通信）<br>PWM初始化，定时器3初始化输出PWM给电机<br>mpu6050初始化，硬件IIC通信<br>气压计初始化，硬件IIC通信<br>陀螺仪校准，这个其实是把零偏值从EEPROM里读取出来<br>加速度计校准，这个也是把零偏值从EEPROM里读出来<br>电子罗盘校准，这个也是把零偏值从EEPROM里读出来<br>定时器9中断初始化<br>以上就是所有的初始化，其实都是时钟，定时器，串口，IIC这些单片机内部资源</p>
+<p>然后是进入大循环while（1）<br>首先是通过OLED显示通道值1到6<br>然后是接收上位机的PID参数，通过串口中断接收<br>发送数据到上位机<br>然后循环<br>以上就是死循环内做的事，比较简单，只是显示还有和上位机通信</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/15/superfly飞控源码分析/" data-id="cj8tprmoh0001dgr5pg8lqi7a" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/12/画飞控板/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">画飞控板</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/15/superfly飞控源码分析/">superfly飞控源码分析</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/12/画飞控板/">画飞控板</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/10/小四轴硬件设计/">小四轴硬件设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/07/飞控定点悬停问题/">飞控定点悬停问题</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/26/博客名字/">博客测试</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

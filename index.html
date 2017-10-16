@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,45 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-superfly飞控源码分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/15/superfly飞控源码分析/" class="article-date">
+  <time datetime="2017-10-15T01:00:42.000Z" itemprop="datePublished">2017-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/15/superfly飞控源码分析/">superfly飞控源码分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>superfly是国内大学生开发的一款开源飞控，keil开发，与其他飞控相比，容易学习上手。<br>废话不多说，直接从主函数看起。</p>
+<p>首先定义了一个变量i，赋值0，暂时不知道是干嘛的<br>然后是时钟初始化，系统时钟设置为168M<br>延时函数初始化，其实是使用SYSTICK来计数<br>串口1初始化，波特率115200<br>定时器2捕获初始化<br>定时器5捕获初始化<br>GPS初始化，其实是串口3初始化，通过串口和GPS进行通信<br>定时器6初始化<br>I2C初始化<br>LED初始化<br>点灯<br>OLED初始化，软件I2C通信<br>OLED清屏，软件I2C通信<br>保存ID，I2C外部EEPROM写操作，不知道这ID是干嘛的。。。<br>然后是GPS里的磁力计初始化，软件IIC通信，之前这里一直搞糊涂，其实那个GPS模块不仅是GPS，还包括了磁力计，这就是为什么那个模块有六根线，两根电源线，两根串口（GPS通信），两根I2C（罗盘通信）<br>PWM初始化，定时器3初始化输出PWM给电机<br>mpu6050初始化，硬件IIC通信<br>气压计初始化，硬件IIC通信<br>陀螺仪校准，这个其实是把零偏值从EEPROM里读取出来<br>加速度计校准，这个也是把零偏值从EEPROM里读出来<br>电子罗盘校准，这个也是把零偏值从EEPROM里读出来<br>定时器9中断初始化<br>以上就是所有的初始化，其实都是时钟，定时器，串口，IIC这些单片机内部资源</p>
+<p>然后是进入大循环while（1）<br>首先是通过OLED显示通道值1到6<br>然后是接收上位机的PID参数，通过串口中断接收<br>发送数据到上位机<br>然后循环<br>以上就是死循环内做的事，比较简单，只是显示还有和上位机通信</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/15/superfly飞控源码分析/" data-id="cj8tprmoh0001dgr5pg8lqi7a" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-画飞控板" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -88,7 +127,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/12/画飞控板/" data-id="cj8n8kdts0001y0r5g34sx8en" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/12/画飞控板/" data-id="cj8tprmpa0003dgr5fn4bxqy2" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -125,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/10/小四轴硬件设计/" data-id="cj8n8kdtv0002y0r5d3hmkh8q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/10/小四轴硬件设计/" data-id="cj8tprmp60002dgr538t61cjz" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -162,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/07/飞控定点悬停问题/" data-id="cj8n8kdtx0003y0r5f8mrp5lw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/07/飞控定点悬停问题/" data-id="cj8tprmq00005dgr5h61ngro6" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -207,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/博客名字/" data-id="cj8n8kdu00004y0r5rz1m749b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/26/博客名字/" data-id="cj8tprmpc0004dgr5f39kyvco" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -252,7 +291,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/hello-world/" data-id="cj8n8kdt30000y0r5posmjwbk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/26/hello-world/" data-id="cj8tprmoa0000dgr5uj238a7d" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -287,9 +326,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/10/15/superfly飞控源码分析/">superfly飞控源码分析</a>
+          </li>
         
           <li>
             <a href="/2017/10/12/画飞控板/">画飞控板</a>
@@ -307,10 +350,6 @@
             <a href="/2017/09/26/博客名字/">博客测试</a>
           </li>
         
-          <li>
-            <a href="/2017/09/26/hello-world/">Hello World</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -324,7 +363,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
