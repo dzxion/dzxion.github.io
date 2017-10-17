@@ -3,20 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>画飞控板 | Hexo</title>
+  <title>遥控通道捕获 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天开始画飞控板，但一天过去才画了一点。。。还是画得少啊。。。对stm32各部分都不是很熟，经常要查手册还有就是要给每一天定个目标，例如明天就要把原理图给搞定">
+  <meta name="description" content="先看遥控捕获初始化函数12TIM2_Cap_Init(0XFFFFFFFF,84-1);TIM5_Cap_Init(0XFFFFFFFF,84-1); 根据他们的参数可知定时器的计数频率是1M 通道值从定时器2和5的捕获中断函数中得到 然后再TIM_Capture()函数里把通道值减去1010">
 <meta property="og:type" content="article">
-<meta property="og:title" content="画飞控板">
-<meta property="og:url" content="http://yoursite.com/2017/10/12/画飞控板/index.html">
+<meta property="og:title" content="遥控通道捕获">
+<meta property="og:url" content="http://yoursite.com/2017/10/16/遥控通道捕获/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="今天开始画飞控板，但一天过去才画了一点。。。还是画得少啊。。。对stm32各部分都不是很熟，经常要查手册还有就是要给每一天定个目标，例如明天就要把原理图给搞定">
-<meta property="og:image" content="http://yoursite.com/images/image1.jpg">
-<meta property="og:updated_time" content="2017-10-11T16:13:45.221Z">
+<meta property="og:description" content="先看遥控捕获初始化函数12TIM2_Cap_Init(0XFFFFFFFF,84-1);TIM5_Cap_Init(0XFFFFFFFF,84-1); 根据他们的参数可知定时器的计数频率是1M 通道值从定时器2和5的捕获中断函数中得到 然后再TIM_Capture()函数里把通道值减去1010">
+<meta property="og:updated_time" content="2017-10-16T13:37:33.678Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="画飞控板">
-<meta name="twitter:description" content="今天开始画飞控板，但一天过去才画了一点。。。还是画得少啊。。。对stm32各部分都不是很熟，经常要查手册还有就是要给每一天定个目标，例如明天就要把原理图给搞定">
-<meta name="twitter:image" content="http://yoursite.com/images/image1.jpg">
+<meta name="twitter:title" content="遥控通道捕获">
+<meta name="twitter:description" content="先看遥控捕获初始化函数12TIM2_Cap_Init(0XFFFFFFFF,84-1);TIM5_Cap_Init(0XFFFFFFFF,84-1); 根据他们的参数可知定时器的计数频率是1M 通道值从定时器2和5的捕获中断函数中得到 然后再TIM_Capture()函数里把通道值减去1010">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-画飞控板" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-遥控通道捕获" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/10/12/画飞控板/" class="article-date">
-  <time datetime="2017-10-11T16:02:59.000Z" itemprop="datePublished">2017-10-12</time>
+    <a href="/2017/10/16/遥控通道捕获/" class="article-date">
+  <time datetime="2017-10-16T11:08:09.000Z" itemprop="datePublished">2017-10-16</time>
 </a>
     
   </div>
@@ -79,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      画飞控板
+      遥控通道捕获
     </h1>
   
 
@@ -87,12 +85,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天开始画飞控板，但一天过去才画了一点。。。<br><img src="/images/image1.jpg" alt=""><br>还是画得少啊。。。对stm32各部分都不是很熟，经常要查手册<br>还有就是要给每一天定个目标，例如明天就要把原理图给搞定</p>
+        <p>先看遥控捕获初始化函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">TIM2_Cap_Init(<span class="number">0XFFFFFFFF</span>,<span class="number">84</span><span class="number">-1</span>);</div><div class="line">TIM5_Cap_Init(<span class="number">0XFFFFFFFF</span>,<span class="number">84</span><span class="number">-1</span>);</div></pre></td></tr></table></figure></p>
+<p>根据他们的参数可知定时器的计数频率是1M</p>
+<p>通道值从定时器2和5的捕获中断函数中得到</p>
+<p>然后再TIM_Capture()函数里把通道值减去1010</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/12/画飞控板/" data-id="cj8vndzbx0005sor5tnb2f1a5" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/16/遥控通道捕获/" data-id="cj8vndzc10006sor5fbp8aszc" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -101,19 +102,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/10/15/superfly飞控源码分析/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/17/姿态解算/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Nieuwer</strong>
       <div class="article-nav-title">
         
-          superfly飞控源码分析
+          姿态解算
         
       </div>
     </a>
   
   
-    <a href="/2017/10/10/小四轴硬件设计/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/10/16/中断函数分析/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Ouder</strong>
-      <div class="article-nav-title">小四轴硬件设计</div>
+      <div class="article-nav-title">中断函数分析</div>
     </a>
   
 </nav>

@@ -3,20 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>画飞控板 | Hexo</title>
+  <title>中断函数分析 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天开始画飞控板，但一天过去才画了一点。。。还是画得少啊。。。对stm32各部分都不是很熟，经常要查手册还有就是要给每一天定个目标，例如明天就要把原理图给搞定">
+  <meta name="description" content="首先是溢出标志位的判断1if(TIM9-&amp;gt;SR&amp;amp;0X0001) 然后搞了个SysNum++和control_flag，就是如果飞机处于上锁状态就慢闪，如果解锁状态就快闪1234SysNum++;	if(SysNum==100000)SysNum=10000;if(control_flag==0)&amp;#123;if(SysNum%500==0)LED=~LED;&amp;#125;if(cont">
 <meta property="og:type" content="article">
-<meta property="og:title" content="画飞控板">
-<meta property="og:url" content="http://yoursite.com/2017/10/12/画飞控板/index.html">
+<meta property="og:title" content="中断函数分析">
+<meta property="og:url" content="http://yoursite.com/2017/10/16/中断函数分析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="今天开始画飞控板，但一天过去才画了一点。。。还是画得少啊。。。对stm32各部分都不是很熟，经常要查手册还有就是要给每一天定个目标，例如明天就要把原理图给搞定">
-<meta property="og:image" content="http://yoursite.com/images/image1.jpg">
-<meta property="og:updated_time" content="2017-10-11T16:13:45.221Z">
+<meta property="og:description" content="首先是溢出标志位的判断1if(TIM9-&amp;gt;SR&amp;amp;0X0001) 然后搞了个SysNum++和control_flag，就是如果飞机处于上锁状态就慢闪，如果解锁状态就快闪1234SysNum++;	if(SysNum==100000)SysNum=10000;if(control_flag==0)&amp;#123;if(SysNum%500==0)LED=~LED;&amp;#125;if(cont">
+<meta property="og:updated_time" content="2017-10-16T11:06:33.851Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="画飞控板">
-<meta name="twitter:description" content="今天开始画飞控板，但一天过去才画了一点。。。还是画得少啊。。。对stm32各部分都不是很熟，经常要查手册还有就是要给每一天定个目标，例如明天就要把原理图给搞定">
-<meta name="twitter:image" content="http://yoursite.com/images/image1.jpg">
+<meta name="twitter:title" content="中断函数分析">
+<meta name="twitter:description" content="首先是溢出标志位的判断1if(TIM9-&amp;gt;SR&amp;amp;0X0001) 然后搞了个SysNum++和control_flag，就是如果飞机处于上锁状态就慢闪，如果解锁状态就快闪1234SysNum++;	if(SysNum==100000)SysNum=10000;if(control_flag==0)&amp;#123;if(SysNum%500==0)LED=~LED;&amp;#125;if(cont">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-画飞控板" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-中断函数分析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/10/12/画飞控板/" class="article-date">
-  <time datetime="2017-10-11T16:02:59.000Z" itemprop="datePublished">2017-10-12</time>
+    <a href="/2017/10/16/中断函数分析/" class="article-date">
+  <time datetime="2017-10-16T10:14:51.000Z" itemprop="datePublished">2017-10-16</time>
 </a>
     
   </div>
@@ -79,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      画飞控板
+      中断函数分析
     </h1>
   
 
@@ -87,12 +85,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天开始画飞控板，但一天过去才画了一点。。。<br><img src="/images/image1.jpg" alt=""><br>还是画得少啊。。。对stm32各部分都不是很熟，经常要查手册<br>还有就是要给每一天定个目标，例如明天就要把原理图给搞定</p>
+        <p>首先是溢出标志位的判断<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(TIM9-&gt;SR&amp;<span class="number">0X0001</span>)</div></pre></td></tr></table></figure></p>
+<p>然后搞了个SysNum++和control_flag，就是如果飞机处于上锁状态就慢闪，如果解锁状态就快闪<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SysNum++;	</div><div class="line"><span class="keyword">if</span>(SysNum==<span class="number">100000</span>)SysNum=<span class="number">10000</span>;</div><div class="line"><span class="keyword">if</span>(control_flag==<span class="number">0</span>)&#123;<span class="keyword">if</span>(SysNum%<span class="number">500</span>==<span class="number">0</span>)LED=~LED;&#125;</div><div class="line"><span class="keyword">if</span>(control_flag==<span class="number">1</span>)&#123;<span class="keyword">if</span>(SysNum%<span class="number">25</span>==<span class="number">0</span>)LED=~LED;&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/12/画飞控板/" data-id="cj8vndzbx0005sor5tnb2f1a5" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/16/中断函数分析/" data-id="cj8vndzbg0001sor50ukxf7ha" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -101,19 +100,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/10/15/superfly飞控源码分析/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/16/遥控通道捕获/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Nieuwer</strong>
       <div class="article-nav-title">
         
-          superfly飞控源码分析
+          遥控通道捕获
         
       </div>
     </a>
   
   
-    <a href="/2017/10/10/小四轴硬件设计/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/10/16/stm32定时器配置/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Ouder</strong>
-      <div class="article-nav-title">小四轴硬件设计</div>
+      <div class="article-nav-title">stm32定时器配置</div>
     </a>
   
 </nav>
