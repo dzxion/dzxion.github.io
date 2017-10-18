@@ -50,7 +50,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -60,6 +60,54 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-控制函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/17/控制函数/" class="article-date">
+  <time datetime="2017-10-17T14:05:45.000Z" itemprop="datePublished">2017-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/17/控制函数/">控制函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先来个判断<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">3</span>]&gt;=<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">3</span>]&lt;<span class="number">100</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&gt;=<span class="number">850</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&lt;<span class="number">1050</span>&amp;&amp;SysNum&gt;<span class="number">2000</span>)</div></pre></td></tr></table></figure></p>
+<p>如果第三通道（就是油门），油门的拨杆打到最下，第一通道（就是横滚），横滚的拨杆打到最右，就进去<br>然后sum_lock1++，经过0.4s后control_flag=1，表示解锁<br>接下来看到的是<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(control_flag)&#123;……&#125;</div><div class="line"><span class="keyword">else</span>&#123;……&#125;</div></pre></td></tr></table></figure></p>
+<p>这里的结构就很清楚了，就是如果解锁状态就干什么，如果上锁状态就干什么<br>看解锁部分，首先是cal_P_R_YAW()这个函数，通过捕获到的通道1、2的遥控值，转化为俯仰角和横滚角的目标值<br>然后又来个判断<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">5</span>]&gt;<span class="number">350</span>&amp;&amp;Capture_CH[<span class="number">5</span>]&lt;<span class="number">450</span>)</div></pre></td></tr></table></figure></p>
+<p>如果通道5的值大于350小于450，就进入GPS定点模式<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CapYoumen=Capture_CH[<span class="number">3</span>]*<span class="number">8</span>+<span class="number">2000</span>;</div></pre></td></tr></table></figure></p>
+<p>获取油门值<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>((Capture_CH[<span class="number">4</span>]&gt;<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">4</span>]&lt;<span class="number">450</span>)||(Capture_CH[<span class="number">4</span>]&gt;=<span class="number">550</span>&amp;&amp;Capture_CH[<span class="number">4</span>]&lt;<span class="number">1100</span>))</div><div class="line">&#123; </div><div class="line">    YAW_val-=(Capture_CH[<span class="number">4</span>]<span class="number">-500</span>)/<span class="number">200.0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>获取偏航角<br>然后是倾角补偿，表示不知道啥意思。。。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">5</span>]&gt;<span class="number">200</span>&amp;&amp;Capture_CH[<span class="number">5</span>]&lt;<span class="number">500</span>)</div></pre></td></tr></table></figure></p>
+<p>当油门大于200小于500进入定高模式<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Youmen=high_PID(Aim_high);</div></pre></td></tr></table></figure></p>
+<p>定高函数计算获得油门量<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PID_1 =PID1()/<span class="number">2</span>;   <span class="comment">//Pitch</span></div><div class="line">PID_2 =PID2()/<span class="number">2</span>;   <span class="comment">// Roll</span></div><div class="line">PID_3 =PID3()/<span class="number">2</span>;   <span class="comment">//Yaw</span></div></pre></td></tr></table></figure></p>
+<p>PID控制<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Motor[<span class="number">1</span>] = Youmen + PID_1 + PID_3;</div><div class="line">Motor[<span class="number">2</span>] = Youmen + PID_2 - PID_3;</div><div class="line">Motor[<span class="number">3</span>] = Youmen - PID_1 + PID_3;</div><div class="line">Motor[<span class="number">4</span>] = Youmen - PID_2 - PID_3;</div></pre></td></tr></table></figure></p>
+<p>获得电机最终值<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">3</span>]&lt;<span class="number">100</span>&amp;&amp;Capture_CH[<span class="number">3</span>]&gt;<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&gt;<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&lt;=<span class="number">100</span>)</div></pre></td></tr></table></figure></p>
+<p>上锁<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">PWM_CH1=(<span class="keyword">int</span>)(Motor[<span class="number">1</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div><div class="line">PWM_CH2=(<span class="keyword">int</span>)(Motor[<span class="number">2</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div><div class="line">PWM_CH3=(<span class="keyword">int</span>)(Motor[<span class="number">3</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div><div class="line">PWM_CH4=(<span class="keyword">int</span>)(Motor[<span class="number">4</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div></pre></td></tr></table></figure></p>
+<p>电机输出</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/17/控制函数/" data-id="cj8wvc7wz00036cr5vrtbxi8r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-姿态解算" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -104,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/17/姿态解算/" data-id="cj8vndzbo0003sor54v2yvk7g" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/17/姿态解算/" data-id="cj8wvc7yc000b6cr57eglz286" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/遥控通道捕获/" data-id="cj8vndzc10006sor5fbp8aszc" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/16/遥控通道捕获/" data-id="cj8wvc7y500086cr5s8n7icdi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -182,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/中断函数分析/" data-id="cj8vndzbg0001sor50ukxf7ha" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/16/中断函数分析/" data-id="cj8wvc7wx00026cr55c9gt7m3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -224,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/stm32定时器配置/" data-id="cj8vndzc40007sor5nc21qewv" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/16/stm32定时器配置/" data-id="cj8wvc7ya000a6cr5b1ds819b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -263,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/stm32时钟底层配置/" data-id="cj8vndzbk0002sor5beq1zznc" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/16/stm32时钟底层配置/" data-id="cj8wvc7wm00006cr56td6j8n5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -302,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/15/superfly飞控源码分析/" data-id="cj8vndzca0008sor54ny6hips" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/15/superfly飞控源码分析/" data-id="cj8wvc7wt00016cr5zlinhj66" class="article-share-link">Share</a>
       
       
     </footer>
@@ -339,7 +387,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/12/画飞控板/" data-id="cj8vndzbx0005sor5tnb2f1a5" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/12/画飞控板/" data-id="cj8wvc7x100046cr5howgn2le" class="article-share-link">Share</a>
       
       
     </footer>
@@ -376,7 +424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/10/小四轴硬件设计/" data-id="cj8vndzbr0004sor5tp8khidm" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/10/小四轴硬件设计/" data-id="cj8wvc7x300056cr5a42z27ee" class="article-share-link">Share</a>
       
       
     </footer>
@@ -413,52 +461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/07/飞控定点悬停问题/" data-id="cj8vndzd00009sor5b4phj7k5" class="article-share-link">Delen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-博客名字" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/09/26/博客名字/" class="article-date">
-  <time datetime="2017-09-26T12:28:40.670Z" itemprop="datePublished">2017-09-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/26/博客名字/">博客测试</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/博客名字/" data-id="cj8vndzd3000asor5w1zf9i1n" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/07/飞控定点悬停问题/" data-id="cj8wvc7xx00076cr5mnij9izv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -487,7 +490,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Arkiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
     </div>
@@ -497,9 +500,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Siste innlegg</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/10/17/控制函数/">控制函数</a>
+          </li>
         
           <li>
             <a href="/2017/10/17/姿态解算/">姿态解算</a>
@@ -515,10 +522,6 @@
         
           <li>
             <a href="/2017/10/16/stm32定时器配置/">stm32定时器配置</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/16/stm32时钟底层配置/">stm32时钟底层配置</a>
           </li>
         
       </ul>

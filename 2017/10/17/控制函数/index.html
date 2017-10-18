@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>控制函数 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="首先来个判断1if(Capture_CH[3]&amp;gt;=0&amp;amp;&amp;amp;Capture_CH[3]&amp;lt;100&amp;amp;&amp;amp;Capture_CH[1]&amp;gt;=850&amp;amp;&amp;amp;Capture_CH[1]&amp;lt;1050&amp;amp;&amp;amp;SysNum&amp;gt;2000) 如果第三通道（就是油门），油门的拨杆打到最下，第一通道（就是横滚），横滚的拨杆打到最右，就进去然后sum_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="控制函数">
+<meta property="og:url" content="http://yoursite.com/2017/10/17/控制函数/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="首先来个判断1if(Capture_CH[3]&amp;gt;=0&amp;amp;&amp;amp;Capture_CH[3]&amp;lt;100&amp;amp;&amp;amp;Capture_CH[1]&amp;gt;=850&amp;amp;&amp;amp;Capture_CH[1]&amp;lt;1050&amp;amp;&amp;amp;SysNum&amp;gt;2000) 如果第三通道（就是油门），油门的拨杆打到最下，第一通道（就是横滚），横滚的拨杆打到最右，就进去然后sum_">
+<meta property="og:updated_time" content="2017-10-18T09:58:46.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="控制函数">
+<meta name="twitter:description" content="首先来个判断1if(Capture_CH[3]&amp;gt;=0&amp;amp;&amp;amp;Capture_CH[3]&amp;lt;100&amp;amp;&amp;amp;Capture_CH[1]&amp;gt;=850&amp;amp;&amp;amp;Capture_CH[1]&amp;lt;1050&amp;amp;&amp;amp;SysNum&amp;gt;2000) 如果第三通道（就是油门），油门的拨杆打到最下，第一通道（就是横滚），横滚的拨杆打到最右，就进去然后sum_">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-控制函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/17/控制函数/" class="article-date">
+  <time datetime="2017-10-17T14:05:45.000Z" itemprop="datePublished">2017-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      控制函数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先来个判断<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">3</span>]&gt;=<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">3</span>]&lt;<span class="number">100</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&gt;=<span class="number">850</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&lt;<span class="number">1050</span>&amp;&amp;SysNum&gt;<span class="number">2000</span>)</div></pre></td></tr></table></figure></p>
+<p>如果第三通道（就是油门），油门的拨杆打到最下，第一通道（就是横滚），横滚的拨杆打到最右，就进去<br>然后sum_lock1++，经过0.4s后control_flag=1，表示解锁<br>接下来看到的是<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(control_flag)&#123;……&#125;</div><div class="line"><span class="keyword">else</span>&#123;……&#125;</div></pre></td></tr></table></figure></p>
+<p>这里的结构就很清楚了，就是如果解锁状态就干什么，如果上锁状态就干什么<br>看解锁部分，首先是cal_P_R_YAW()这个函数，通过捕获到的通道1、2的遥控值，转化为俯仰角和横滚角的目标值<br>然后又来个判断<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">5</span>]&gt;<span class="number">350</span>&amp;&amp;Capture_CH[<span class="number">5</span>]&lt;<span class="number">450</span>)</div></pre></td></tr></table></figure></p>
+<p>如果通道5的值大于350小于450，就进入GPS定点模式<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CapYoumen=Capture_CH[<span class="number">3</span>]*<span class="number">8</span>+<span class="number">2000</span>;</div></pre></td></tr></table></figure></p>
+<p>获取油门值<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>((Capture_CH[<span class="number">4</span>]&gt;<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">4</span>]&lt;<span class="number">450</span>)||(Capture_CH[<span class="number">4</span>]&gt;=<span class="number">550</span>&amp;&amp;Capture_CH[<span class="number">4</span>]&lt;<span class="number">1100</span>))</div><div class="line">&#123; </div><div class="line">    YAW_val-=(Capture_CH[<span class="number">4</span>]<span class="number">-500</span>)/<span class="number">200.0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>获取偏航角<br>然后是倾角补偿，表示不知道啥意思。。。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">5</span>]&gt;<span class="number">200</span>&amp;&amp;Capture_CH[<span class="number">5</span>]&lt;<span class="number">500</span>)</div></pre></td></tr></table></figure></p>
+<p>当油门大于200小于500进入定高模式<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Youmen=high_PID(Aim_high);</div></pre></td></tr></table></figure></p>
+<p>定高函数计算获得油门量<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PID_1 =PID1()/<span class="number">2</span>;   <span class="comment">//Pitch</span></div><div class="line">PID_2 =PID2()/<span class="number">2</span>;   <span class="comment">// Roll</span></div><div class="line">PID_3 =PID3()/<span class="number">2</span>;   <span class="comment">//Yaw</span></div></pre></td></tr></table></figure></p>
+<p>PID控制<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Motor[<span class="number">1</span>] = Youmen + PID_1 + PID_3;</div><div class="line">Motor[<span class="number">2</span>] = Youmen + PID_2 - PID_3;</div><div class="line">Motor[<span class="number">3</span>] = Youmen - PID_1 + PID_3;</div><div class="line">Motor[<span class="number">4</span>] = Youmen - PID_2 - PID_3;</div></pre></td></tr></table></figure></p>
+<p>获得电机最终值<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">3</span>]&lt;<span class="number">100</span>&amp;&amp;Capture_CH[<span class="number">3</span>]&gt;<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&gt;<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&lt;=<span class="number">100</span>)</div></pre></td></tr></table></figure></p>
+<p>上锁<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">PWM_CH1=(<span class="keyword">int</span>)(Motor[<span class="number">1</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div><div class="line">PWM_CH2=(<span class="keyword">int</span>)(Motor[<span class="number">2</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div><div class="line">PWM_CH3=(<span class="keyword">int</span>)(Motor[<span class="number">3</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div><div class="line">PWM_CH4=(<span class="keyword">int</span>)(Motor[<span class="number">4</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div></pre></td></tr></table></figure></p>
+<p>电机输出</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/17/控制函数/" data-id="cj8wvc7wz00036cr5vrtbxi8r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/17/姿态解算/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">姿态解算</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Arkiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Siste innlegg</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/17/控制函数/">控制函数</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/17/姿态解算/">姿态解算</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/16/遥控通道捕获/">遥控通道捕获</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/16/中断函数分析/">中断函数分析</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/16/stm32定时器配置/">stm32定时器配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
