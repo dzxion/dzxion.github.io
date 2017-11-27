@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-控制函数" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/10/17/控制函数/" class="article-date">
-  <time datetime="2017-10-17T14:05:45.000Z" itemprop="datePublished">2017-10-17</time>
+    <a href="/2017/09/26/hello-world/" class="article-date">
+  <time datetime="2017-09-26T04:39:57.584Z" itemprop="datePublished">2017-09-26</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/17/控制函数/">控制函数</a>
+      <a class="article-title" href="/2017/09/26/hello-world/">Hello World</a>
     </h1>
   
 
@@ -83,385 +83,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>首先来个判断<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">3</span>]&gt;=<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">3</span>]&lt;<span class="number">100</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&gt;=<span class="number">850</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&lt;<span class="number">1050</span>&amp;&amp;SysNum&gt;<span class="number">2000</span>)</div></pre></td></tr></table></figure></p>
-<p>如果第三通道（就是油门），油门的拨杆打到最下，第一通道（就是横滚），横滚的拨杆打到最右，就进去<br>然后sum_lock1++，经过0.4s后control_flag=1，表示解锁<br>接下来看到的是<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(control_flag)&#123;……&#125;</div><div class="line"><span class="keyword">else</span>&#123;……&#125;</div></pre></td></tr></table></figure></p>
-<p>这里的结构就很清楚了，就是如果解锁状态就干什么，如果上锁状态就干什么<br>看解锁部分，首先是cal_P_R_YAW()这个函数，通过捕获到的通道1、2的遥控值，转化为俯仰角和横滚角的目标值<br>然后又来个判断<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">5</span>]&gt;<span class="number">350</span>&amp;&amp;Capture_CH[<span class="number">5</span>]&lt;<span class="number">450</span>)</div></pre></td></tr></table></figure></p>
-<p>如果通道5的值大于350小于450，就进入GPS定点模式<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CapYoumen=Capture_CH[<span class="number">3</span>]*<span class="number">8</span>+<span class="number">2000</span>;</div></pre></td></tr></table></figure></p>
-<p>获取油门值<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>((Capture_CH[<span class="number">4</span>]&gt;<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">4</span>]&lt;<span class="number">450</span>)||(Capture_CH[<span class="number">4</span>]&gt;=<span class="number">550</span>&amp;&amp;Capture_CH[<span class="number">4</span>]&lt;<span class="number">1100</span>))</div><div class="line">&#123; </div><div class="line">    YAW_val-=(Capture_CH[<span class="number">4</span>]<span class="number">-500</span>)/<span class="number">200.0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>获取偏航角<br>然后是倾角补偿，表示不知道啥意思。。。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">5</span>]&gt;<span class="number">200</span>&amp;&amp;Capture_CH[<span class="number">5</span>]&lt;<span class="number">500</span>)</div></pre></td></tr></table></figure></p>
-<p>当油门大于200小于500进入定高模式<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Youmen=high_PID(Aim_high);</div></pre></td></tr></table></figure></p>
-<p>定高函数计算获得油门量<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PID_1 =PID1()/<span class="number">2</span>;   <span class="comment">//Pitch</span></div><div class="line">PID_2 =PID2()/<span class="number">2</span>;   <span class="comment">// Roll</span></div><div class="line">PID_3 =PID3()/<span class="number">2</span>;   <span class="comment">//Yaw</span></div></pre></td></tr></table></figure></p>
-<p>PID控制<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Motor[<span class="number">1</span>] = Youmen + PID_1 + PID_3;</div><div class="line">Motor[<span class="number">2</span>] = Youmen + PID_2 - PID_3;</div><div class="line">Motor[<span class="number">3</span>] = Youmen - PID_1 + PID_3;</div><div class="line">Motor[<span class="number">4</span>] = Youmen - PID_2 - PID_3;</div></pre></td></tr></table></figure></p>
-<p>获得电机最终值<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(Capture_CH[<span class="number">3</span>]&lt;<span class="number">100</span>&amp;&amp;Capture_CH[<span class="number">3</span>]&gt;<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&gt;<span class="number">0</span>&amp;&amp;Capture_CH[<span class="number">1</span>]&lt;=<span class="number">100</span>)</div></pre></td></tr></table></figure></p>
-<p>上锁<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">PWM_CH1=(<span class="keyword">int</span>)(Motor[<span class="number">1</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div><div class="line">PWM_CH2=(<span class="keyword">int</span>)(Motor[<span class="number">2</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div><div class="line">PWM_CH3=(<span class="keyword">int</span>)(Motor[<span class="number">3</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div><div class="line">PWM_CH4=(<span class="keyword">int</span>)(Motor[<span class="number">4</span>]*<span class="number">0.85</span>+<span class="number">8499</span>);</div></pre></td></tr></table></figure></p>
-<p>电机输出</p>
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/17/控制函数/" data-id="cj8wvc7wz00036cr5vrtbxi8r" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-姿态解算" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/17/姿态解算/" class="article-date">
-  <time datetime="2017-10-17T05:07:16.000Z" itemprop="datePublished">2017-10-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/17/姿态解算/">姿态解算</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>进入姿态解算函数，首先是Prepare_Data()，这个函数主要是获取数据</p>
-<p>通过IIC读取数据放到mpu6050_buffer[]这个数组里面<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">mpu6050_buffer[<span class="number">0</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x3B</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">1</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x3C</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">2</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x3D</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">3</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x3E</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">4</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x3F</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">5</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x40</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">8</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x43</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">9</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x44</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">10</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x45</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">11</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x46</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">12</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x47</span>,TYPE_MPU);</div><div class="line">mpu6050_buffer[<span class="number">13</span>]=Single_Read(MPU6050_ADDRESS, <span class="number">0x48</span>,TYPE_MPU);</div></pre></td></tr></table></figure></p>
-<p>然后对数据进行处理，等到原始值<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sensor.acc.origin.x = ((((<span class="keyword">int16_t</span>)mpu6050_buffer[<span class="number">0</span>]) &lt;&lt; <span class="number">8</span>) | mpu6050_buffer[<span class="number">1</span>]) ;</div><div class="line">sensor.acc.origin.y = ((((<span class="keyword">int16_t</span>)mpu6050_buffer[<span class="number">2</span>]) &lt;&lt; <span class="number">8</span>) | mpu6050_buffer[<span class="number">3</span>]);</div><div class="line">sensor.acc.origin.z = ((((<span class="keyword">int16_t</span>)mpu6050_buffer[<span class="number">4</span>]) &lt;&lt; <span class="number">8</span>) | mpu6050_buffer[<span class="number">5</span>]);</div><div class="line">sensor.gyro.origin.x = ((((<span class="keyword">int16_t</span>)mpu6050_buffer[<span class="number">8</span>]) &lt;&lt; <span class="number">8</span>) | mpu6050_buffer[<span class="number">9</span>]);</div><div class="line">sensor.gyro.origin.y = ((((<span class="keyword">int16_t</span>)mpu6050_buffer[<span class="number">10</span>]) &lt;&lt; <span class="number">8</span>)| mpu6050_buffer[<span class="number">11</span>]);</div><div class="line">sensor.gyro.origin.z = ((((<span class="keyword">int16_t</span>)mpu6050_buffer[<span class="number">12</span>]) &lt;&lt; <span class="number">8</span>)| mpu6050_buffer[<span class="number">13</span>]);</div></pre></td></tr></table></figure></p>
-<p>角速度减去零偏值<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Gyro_origin[<span class="number">0</span>]=sensor.gyro.origin.x/<span class="number">32768.0</span>*<span class="number">1000</span>-X_GYRO_OFFSET;</div><div class="line">Gyro_origin[<span class="number">1</span>]=sensor.gyro.origin.y/<span class="number">32768.0</span>*<span class="number">1000</span>-Y_GYRO_OFFSET;</div><div class="line">Gyro_origin[<span class="number">2</span>]=-sensor.gyro.origin.z/<span class="number">32768.0</span>*<span class="number">1000</span>+Z_GYRO_OFFSET;</div></pre></td></tr></table></figure></p>
-<p>角速度转化为弧度，这是姿态解算的输入参数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sensor.gyro.radian.x = Gyro_origin[<span class="number">0</span>]*AtR ;</div><div class="line">sensor.gyro.radian.y = Gyro_origin[<span class="number">1</span>]*AtR ;</div><div class="line">sensor.gyro.radian.z = -Gyro_origin[<span class="number">2</span>]*AtR;</div></pre></td></tr></table></figure></p>
-<p>然后对三轴加速度进行卡尔曼滤波<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sensor.acc.averag.x = KalmanFilter_x(sensor.acc.origin.x,KALMAN_Q,KALMAN_R);</div><div class="line">sensor.acc.averag.y = KalmanFilter_y(sensor.acc.origin.y,KALMAN_Q,KALMAN_R);</div><div class="line">sensor.acc.averag.z = KalmanFilter_z(sensor.acc.origin.z,KALMAN_Q,KALMAN_R);</div></pre></td></tr></table></figure></p>
-<p>加速度减去零偏值，这是姿态解算的输入参数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Accel_origin[<span class="number">0</span>]=(<span class="keyword">float</span>)(sensor.acc.averag.x/<span class="number">32768.0</span>*<span class="number">4</span>*<span class="number">9.8</span>)-X_ACCEL_OFFSET;</div><div class="line">Accel_origin[<span class="number">1</span>]=(<span class="keyword">float</span>)(sensor.acc.averag.y/<span class="number">32768.0</span>*<span class="number">4</span>*<span class="number">9.8</span>)-Y_ACCEL_OFFSET;</div><div class="line">Accel_origin[<span class="number">2</span>]=(<span class="keyword">float</span>)(sensor.acc.averag.z/<span class="number">32768.0</span>*<span class="number">4</span>*<span class="number">9.8</span>)-Z_ACCEL_OFFSET;</div></pre></td></tr></table></figure></p>
-<p>然后数据读取完成</p>
-<p>然后看姿态解算函数，可以参考博客：[四元数AHRS姿态解算和IMU姿态解算分析]{<a href="http://www.bspilot.com/?p=121}" target="_blank" rel="external">http://www.bspilot.com/?p=121}</a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">IMUupdate(sensor.gyro.radian.x,sensor.gyro.radian.y,sensor.gyro.radian.z,Accel_origin[<span class="number">0</span>],Accel_origin[<span class="number">1</span>],Accel_origin[<span class="number">2</span>],SysNum);</div></pre></td></tr></table></figure></p>
-<p>可以看到入口总共有7个参数，三轴的sensor.gyro.radian弧度，三轴的Accel_origin[]加速度原始值，SysNum系统计数值<br>SysNum是每两毫秒加一次<br>首先是CalYawAngleHMC(SysNum,&amp;YAW_Mag)得到偏航角<br>然后对GPS操作的看不懂。。。<br>然后是加速度归一化<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">norm1 = MySqrt(Accelx*Accelx + Accely*Accely + Accelz*Accelz);</div><div class="line"><span class="keyword">if</span>(norm1==<span class="number">0</span>)<span class="keyword">return</span>;</div><div class="line">Accelx = Accelx/norm1;</div><div class="line">Accely = Accely / norm1;</div><div class="line">Accelz = Accelz / norm1;</div></pre></td></tr></table></figure></p>
-<p>然后是估计重力方向和流量/变迁<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Gravx = <span class="number">2</span>*(Quat[<span class="number">1</span>]*Quat[<span class="number">3</span>] - Quat[<span class="number">0</span>]*Quat[<span class="number">2</span>]);</div><div class="line">Gravy = <span class="number">2</span>*(Quat[<span class="number">0</span>]*Quat[<span class="number">1</span>] + Quat[<span class="number">2</span>]*Quat[<span class="number">3</span>]);</div><div class="line">Gravz = Quat[<span class="number">0</span>]*Quat[<span class="number">0</span>] - Quat[<span class="number">1</span>]*Quat[<span class="number">1</span>] - Quat[<span class="number">2</span>]*Quat[<span class="number">2</span>] + Quat[<span class="number">3</span>]*Quat[<span class="number">3</span>] ;</div></pre></td></tr></table></figure></p>
-<p>向量外积在相减得到差分就是误差<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Errx = (Accely*Gravz - Accelz*Gravy) ;                           					 </div><div class="line">Erry = (Accelz*Gravx - Accelx*Gravz) ;</div><div class="line">Errz = (Accelx*Gravy - Accely*Gravx) ;</div></pre></td></tr></table></figure></p>
-<p>对误差进行积分<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">exInt = exInt + VariableParameter(Errx) * Errx * Ki;							</div><div class="line">eyInt = eyInt + VariableParameter(Erry) * Erry * Ki;</div><div class="line">ezInt = ezInt + VariableParameter(Errz) * Errz * Ki;</div></pre></td></tr></table></figure></p>
-<p>地磁补偿法消除YAW漂移问题<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Gyrox = Gyrox + Kp *  VariableParameter(Errx) * Errx + exInt-Gravx*KpYaw*TransTo_180Degrees(YAW_Mag-lastAngleYaw) ;</div><div class="line">Gyroy = Gyroy + Kp *  VariableParameter(Erry) * Erry + eyInt-Gravy*KpYaw*TransTo_180Degrees(YAW_Mag-lastAngleYaw) ;</div><div class="line">Gyroz = Gyroz +Kp *  VariableParameter(Errz) * Errz + ezInt-Gravz*KpYaw*TransTo_180Degrees(YAW_Mag-lastAngleYaw) ;</div></pre></td></tr></table></figure></p>
-<p>四元素的微分方程<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Quat[<span class="number">0</span>] = Quat[<span class="number">0</span>] + (-Quat[<span class="number">1</span>]*Gyrox - Quat[<span class="number">2</span>]*Gyroy - Quat[<span class="number">3</span>]*Gyroz)*halfT;</div><div class="line">Quat[<span class="number">1</span>] = Quat[<span class="number">1</span>]+ (Quat[<span class="number">0</span>]*Gyrox + Quat[<span class="number">2</span>]*Gyroz - Quat[<span class="number">3</span>]*Gyroy)*halfT;</div><div class="line">Quat[<span class="number">2</span>] = Quat[<span class="number">2</span>] + (Quat[<span class="number">0</span>]*Gyroy - Quat[<span class="number">1</span>]*Gyroz + Quat[<span class="number">3</span>]*Gyrox)*halfT;</div><div class="line">Quat[<span class="number">3</span>] = Quat[<span class="number">3</span>] + (Quat[<span class="number">0</span>]*Gyroz + Quat[<span class="number">1</span>]*Gyroy - Quat[<span class="number">2</span>]*Gyrox)*halfT;</div></pre></td></tr></table></figure></p>
-<p>四元素归一法<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">norm2 = MySqrt(Quat[<span class="number">0</span>]*Quat[<span class="number">0</span>] + Quat[<span class="number">1</span>]*Quat[<span class="number">1</span>] + Quat[<span class="number">2</span>]*Quat[<span class="number">2</span>] + Quat[<span class="number">3</span>]*Quat[<span class="number">3</span>]);</div><div class="line"><span class="keyword">if</span>(norm2==<span class="number">0</span>)<span class="keyword">return</span>;</div><div class="line">Quat[<span class="number">0</span>] = Quat[<span class="number">0</span>] / norm2;</div><div class="line">Quat[<span class="number">1</span>] = Quat[<span class="number">1</span>] / norm2;</div><div class="line">Quat[<span class="number">2</span>] = Quat[<span class="number">2</span>] / norm2;</div><div class="line">Quat[<span class="number">3</span>] = Quat[<span class="number">3</span>] /norm2;</div></pre></td></tr></table></figure></p>
-<p>计算角度<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">angle.roll = <span class="built_in">atan2</span>(<span class="number">2</span>*Quat[<span class="number">2</span>]*Quat[<span class="number">3</span>] + <span class="number">2</span>*Quat[<span class="number">0</span>]*Quat[<span class="number">1</span>], <span class="number">-2</span>*Quat[<span class="number">1</span>]*Quat[<span class="number">1</span>] - <span class="number">2</span>*Quat[<span class="number">2</span>]*Quat[<span class="number">2</span>] + <span class="number">1</span>);</div><div class="line">angle.pitch = <span class="built_in">asin</span>(<span class="number">-2</span>*Quat[<span class="number">1</span>]*Quat[<span class="number">3</span>] + <span class="number">2</span>*Quat[<span class="number">0</span>]*Quat[<span class="number">2</span>]); <span class="comment">// pitch</span></div><div class="line">angle.yaw =<span class="built_in">atan2</span>(<span class="number">-2</span>*(Quat[<span class="number">1</span>]*Quat[<span class="number">2</span>] + Quat[<span class="number">0</span>]*Quat[<span class="number">3</span>]),<span class="number">2</span>*(Quat[<span class="number">0</span>]*Quat[<span class="number">0</span>]+Quat[<span class="number">1</span>]*Quat[<span class="number">1</span>])<span class="number">-1</span>) ;	</div><div class="line">Angle_Quat[<span class="number">2</span>]=Filter_YAW(TransTo_180Degrees(angle.yaw*RtA+YAW_val));			</div><div class="line">Angle_Absolute[<span class="number">0</span>]= angle.roll*RtA;</div><div class="line">Angle_Absolute[<span class="number">1</span>]= angle.pitch*RtA;</div><div class="line">Angle_Absolute[<span class="number">2</span>]= angle.yaw*RtA;</div><div class="line">Yaw_Absolute=angle.yaw*RtA;</div><div class="line">lastAngleYaw=Yaw_Absolute;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/17/姿态解算/" data-id="cj8wvc7yc000b6cr57eglz286" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-遥控通道捕获" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/16/遥控通道捕获/" class="article-date">
-  <time datetime="2017-10-16T11:08:09.000Z" itemprop="datePublished">2017-10-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/16/遥控通道捕获/">遥控通道捕获</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先看遥控捕获初始化函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">TIM2_Cap_Init(<span class="number">0XFFFFFFFF</span>,<span class="number">84</span><span class="number">-1</span>);</div><div class="line">TIM5_Cap_Init(<span class="number">0XFFFFFFFF</span>,<span class="number">84</span><span class="number">-1</span>);</div></pre></td></tr></table></figure></p>
-<p>根据他们的参数可知定时器的计数频率是1M</p>
-<p>通道值从定时器2和5的捕获中断函数中得到</p>
-<p>然后再TIM_Capture()函数里把通道值减去1010</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/遥控通道捕获/" data-id="cj8wvc7y500086cr5s8n7icdi" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-中断函数分析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/16/中断函数分析/" class="article-date">
-  <time datetime="2017-10-16T10:14:51.000Z" itemprop="datePublished">2017-10-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/16/中断函数分析/">中断函数分析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先是溢出标志位的判断<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(TIM9-&gt;SR&amp;<span class="number">0X0001</span>)</div></pre></td></tr></table></figure></p>
-<p>然后搞了个SysNum++和control_flag，就是如果飞机处于上锁状态就慢闪，如果解锁状态就快闪<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SysNum++;	</div><div class="line"><span class="keyword">if</span>(SysNum==<span class="number">100000</span>)SysNum=<span class="number">10000</span>;</div><div class="line"><span class="keyword">if</span>(control_flag==<span class="number">0</span>)&#123;<span class="keyword">if</span>(SysNum%<span class="number">500</span>==<span class="number">0</span>)LED=~LED;&#125;</div><div class="line"><span class="keyword">if</span>(control_flag==<span class="number">1</span>)&#123;<span class="keyword">if</span>(SysNum%<span class="number">25</span>==<span class="number">0</span>)LED=~LED;&#125;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/中断函数分析/" data-id="cj8wvc7wx00026cr55c9gt7m3" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-stm32定时器配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/16/stm32定时器配置/" class="article-date">
-  <time datetime="2017-10-16T08:14:07.000Z" itemprop="datePublished">2017-10-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/16/stm32定时器配置/">stm32定时器配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先把公式拿出来：溢出中断时间=(arr+1)*T<br>arr是计数器自动重装值，就是你要计数几次，然后T是你的时钟源周期</p>
-<p>arr是你直接操作寄存器赋值的<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TIM9-&gt;ARR=arr;</div></pre></td></tr></table></figure></p>
-<p>然后T就比较麻烦，公式是f = fclk/(N+1)<br>fclk是计数器的时钟，N就是分频值</p>
-<p>N是你直接操作寄存器赋值的<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TIM9-&gt;ARR=psc;</div></pre></td></tr></table></figure></p>
-<p>fclk是你配置时钟的时候设置的，自己看手册</p>
-<p>例如：fclk设置为168M，分频值N = 167，求得f = 1M，就是计数器的时钟是1us<br>然后arr = 1999，求得中断时间为2ms</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/stm32定时器配置/" data-id="cj8wvc7ya000a6cr5b1ds819b" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-stm32时钟底层配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/16/stm32时钟底层配置/" class="article-date">
-  <time datetime="2017-10-16T06:50:41.000Z" itemprop="datePublished">2017-10-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/16/stm32时钟底层配置/">stm32时钟底层配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="看手册！"><a href="#看手册！" class="headerlink" title="看手册！"></a>看手册！</h2><h3 id="时钟控制寄存器-HSI-振荡器打开-设置HISON-开启内部高速RC振荡"><a href="#时钟控制寄存器-HSI-振荡器打开-设置HISON-开启内部高速RC振荡" class="headerlink" title="时钟控制寄存器 HSI 振荡器打开 设置HISON,开启内部高速RC振荡"></a>时钟控制寄存器 HSI 振荡器打开 设置HISON,开启内部高速RC振荡</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RCC-&gt;CR|=<span class="number">0x00000001</span>;</div></pre></td></tr></table></figure>
-<h3 id="时钟配置寄存器-不分频-CFGR清零"><a href="#时钟配置寄存器-不分频-CFGR清零" class="headerlink" title="时钟配置寄存器 不分频 CFGR清零"></a>时钟配置寄存器 不分频 CFGR清零</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RCC-&gt;CFGR=<span class="number">0x00000000</span>;</div></pre></td></tr></table></figure>
-<h3 id="时钟控制寄存器-不分频-CFGR清零"><a href="#时钟控制寄存器-不分频-CFGR清零" class="headerlink" title="时钟控制寄存器 不分频 CFGR清零"></a>时钟控制寄存器 不分频 CFGR清零</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RCC-&gt;CFGR=<span class="number">0x00000000</span>;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/stm32时钟底层配置/" data-id="cj8wvc7wm00006cr56td6j8n5" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-superfly飞控源码分析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/15/superfly飞控源码分析/" class="article-date">
-  <time datetime="2017-10-15T01:00:42.000Z" itemprop="datePublished">2017-10-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/15/superfly飞控源码分析/">superfly飞控源码分析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>superfly是国内大学生开发的一款开源飞控，keil开发，与其他飞控相比，容易学习上手。<br>废话不多说，直接从主函数看起。</p>
-<p>首先定义了一个变量i，赋值0，暂时不知道是干嘛的<br>然后是时钟初始化，系统时钟设置为168M<br>延时函数初始化，其实是使用SYSTICK来计数<br>串口1初始化，波特率115200<br>定时器2捕获初始化<br>定时器5捕获初始化<br>GPS初始化，其实是串口3初始化，通过串口和GPS进行通信<br>定时器6初始化<br>I2C初始化<br>LED初始化<br>点灯<br>OLED初始化，软件I2C通信<br>OLED清屏，软件I2C通信<br>保存ID，I2C外部EEPROM写操作，不知道这ID是干嘛的。。。<br>然后是GPS里的磁力计初始化，软件IIC通信，之前这里一直搞糊涂，其实那个GPS模块不仅是GPS，还包括了磁力计，这就是为什么那个模块有六根线，两根电源线，两根串口（GPS通信），两根I2C（罗盘通信）<br>PWM初始化，定时器3初始化输出PWM给电机<br>mpu6050初始化，硬件IIC通信<br>气压计初始化，硬件IIC通信<br>陀螺仪校准，这个其实是把零偏值从EEPROM里读取出来<br>加速度计校准，这个也是把零偏值从EEPROM里读出来<br>电子罗盘校准，这个也是把零偏值从EEPROM里读出来<br>定时器9中断初始化<br>以上就是所有的初始化，其实都是时钟，定时器，串口，IIC这些单片机内部资源</p>
-<p>然后是进入大循环while（1）<br>首先是通过OLED显示通道值1到6<br>然后是接收上位机的PID参数，通过串口中断接收<br>发送数据到上位机<br>然后循环<br>以上就是死循环内做的事，比较简单，只是显示还有和上位机通信</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/15/superfly飞控源码分析/" data-id="cj8wvc7wt00016cr5zlinhj66" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-画飞控板" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/12/画飞控板/" class="article-date">
-  <time datetime="2017-10-11T16:02:59.000Z" itemprop="datePublished">2017-10-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/12/画飞控板/">画飞控板</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天开始画飞控板，但一天过去才画了一点。。。<br><img src="/images/image1.jpg" alt=""><br>还是画得少啊。。。对stm32各部分都不是很熟，经常要查手册<br>还有就是要给每一天定个目标，例如明天就要把原理图给搞定</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/12/画飞控板/" data-id="cj8wvc7x100046cr5howgn2le" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-小四轴硬件设计" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/10/小四轴硬件设计/" class="article-date">
-  <time datetime="2017-10-10T15:59:59.000Z" itemprop="datePublished">2017-10-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/10/小四轴硬件设计/">小四轴硬件设计</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天主要完成了分工的问题，飞控板由我来画，首先是确定主要的硬件内容，这里想了好久的。。。<br>因为要考虑到后面的开发，但最后还是决定从最简单的做起，以能起飞的标准去做。<br>硬件设计：<br>主控stm32f103c8t6+陀螺仪mpu6050+2.4gnrf24l01+mos管</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/10/小四轴硬件设计/" data-id="cj8wvc7x300056cr5a42z27ee" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-飞控定点悬停问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/10/07/飞控定点悬停问题/" class="article-date">
-  <time datetime="2017-10-07T01:17:10.000Z" itemprop="datePublished">2017-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/07/飞控定点悬停问题/">飞控定点悬停问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>好吧，今天第一天写工作日志<br>今天主要解决的问题是飞控会漂的问题，原因可能来自f3飞控本身的bug，因此换个飞控是很有必要的<br>那么问题来了，用什么飞控好勒，你谷歌百度或者问别人那个飞控定点悬停效果好最后得到的答案都是一个：<br>pixhawk<br>但是，pixhawk虽然很强大，从学习的角度看，难度太大，开发周期长，如果我大二这个时候开始搞的话可能会选它，但是现在时间不够。。。所以现在要一个既有良好的定点效果，并且易上手开发的飞控，因此我的选择是：<br>superfly<br>这个是国内大学生团体做的一款开源飞控，keil开发，并且目测定点效果好.<br>现在在等快递中。。。<br>在等的过程中开始计划我的第二个项目，就是做一个微型四轴，从硬件到软件，从底层到顶层<br>首先要设计好硬件，这也是设计中比较困难的地方，先找资料，看看别人的原理图设计，用到哪些芯片，哪些模块。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/07/飞控定点悬停问题/" data-id="cj8wvc7xx00076cr5mnij9izv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/26/hello-world/" data-id="cjahtkngn0000ggr5ks6wvzwk" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -472,10 +107,6 @@
 
   
 
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
-  </nav>
 </section>
         
           <aside id="sidebar">
@@ -490,9 +121,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Arkiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
     </div>
   </div>
 
@@ -500,28 +131,12 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Siste innlegg</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/10/17/控制函数/">控制函数</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/17/姿态解算/">姿态解算</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/16/遥控通道捕获/">遥控通道捕获</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/16/中断函数分析/">中断函数分析</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/16/stm32定时器配置/">stm32定时器配置</a>
+            <a href="/2017/09/26/hello-world/">Hello World</a>
           </li>
         
       </ul>
@@ -537,7 +152,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
